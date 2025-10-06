@@ -1,6 +1,16 @@
 #include "raylib.h"
-#include "grid.h"
-#include "blocks.cpp"
+#include "game.h"
+
+double lastUpdateTime = 0;
+
+bool EventTriggered(double interval){
+    double currentTIme = GetTime();
+    if(currentTIme - lastUpdateTime >= interval){
+        lastUpdateTime = currentTIme;
+        return true;
+    }
+    return false;
+}
 
 /*
     gcc {NOME_DO_ARQUIVO.cpp} -lraylib
@@ -9,7 +19,7 @@
 
     ./a.out
 
-    g++ main.cpp grid.cpp position.cpp colors.cpp block.cpp blocks.cpp -lraylib -o tetris
+    g++ main.cpp grid.cpp position.cpp colors.cpp block.cpp blocks.cpp game.cpp -lraylib -o tetris
 
 */
 
@@ -17,21 +27,19 @@ int main(void)
 {
     Color darkblue = {44, 44, 127, 255};
     InitWindow(300, 600, "Tetris");
-    
-    Grid grid = Grid();
+    SetTargetFPS(60);
 
-    TBlock block = TBlock();
+    Game game = Game();
 
-    grid.PrintGrid();
-
-    SetTargetFPS(3);
     while (!WindowShouldClose())
     {
+        game.HandleInput();
+        if(EventTriggered(0.35)){
+            game.MoveBlockDown();
+        }
         BeginDrawing();
         ClearBackground(darkblue);
-        grid.Draw();
-        block.Draw();
-
+        game.Draw();
         EndDrawing();
     }
 

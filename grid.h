@@ -7,8 +7,10 @@ public:
     Grid();
     void Initialize();
     void PrintGrid();
-    int grid[20][10];
     void Draw();
+    bool IsCellOutside(int row, int column);
+    bool IsCellEmpry(int row, int column);
+    int grid[20][10];
 private:
     int numRows;
     int numCols;

@@ -35,3 +35,20 @@ void Grid::Draw(){
         }
     }
 }
+
+bool Grid::IsCellOutside(int row, int column)
+{
+    if(row >= 0 && row < numRows && column >= 0 && column < numCols){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+bool Grid::IsCellEmpry(int row, int column)
+{
+    if(grid[row][column] == 0){
+        return true;
+    }
+    else return false;
+}
