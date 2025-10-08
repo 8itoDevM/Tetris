@@ -108,7 +108,7 @@ void Game::LockBlock() {
     }
 
     currentBlock = nextBlock;
-    if(!BlockFits()){
+    if(BlockFits() == false){
         gameOver = true;
     }
     nextBlock = GetRandomBlock();
